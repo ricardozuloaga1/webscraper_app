@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Scraper</title>
+    <title>Web Scraper App</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <style>
         table {
@@ -22,10 +22,30 @@
         tr:hover {
             background-color: #f5f5f5;
         }
+        .instructions {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
     <h1>Web Scraper App</h1>
+
+    <!-- Instructions Section -->
+    <div class="instructions">
+        <h2>How to Use the Web Scraper</h2>
+        <ol>
+            <li><strong>Enter Product Page URL:</strong> Provide the URL of the product search page you want to scrape. This will collect product data from the specified page.</li>
+            <li><strong>Or Enter a Keyword to Search AliExpress:</strong> You can also enter a keyword to search directly on AliExpress. The scraper will use this keyword to find products.</li>
+            <li><strong>Select Number of Pages:</strong> Choose the number of search result pages you wish to scrape. The default is set to scrape 10 pages, but you can adjust this number as needed.</li>
+            <li><strong>Submit:</strong> Click the "Scrape" button to start the scraping process. The results will be displayed in a table format below, showing product name, description, price, number of suppliers, average review, and product image.</li>
+            <li><strong>Sorting and Viewing Entries:</strong> Use the table headers to sort the data by different columns (e.g., price, average reviews). You can also select how many entries to display at a time using the dropdown menu above the table.</li>
+        </ol>
+    </div>
+
     <form method="POST">
         <label for="url">Enter Product Page URL:</label>
         <input type="text" id="url" name="url">

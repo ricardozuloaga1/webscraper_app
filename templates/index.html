@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Scraper App</h1>
+    <form method="POST">
+        <label for="url">Enter Product Page URL:</label>
+        <input type="text" id="url" name="url">
+        <br>
+        <label for="keyword">Or Enter Keyword to Search AliExpress:</label>
+        <input type="text" id="keyword" name="keyword">
+        <br>
+        <label for="pages">Number of Pages to Scrape:</label>
+        <input type="number" id="pages" name="pages" min="1" max="50" value="10" required>
+        <br>
+        <button type="submit">Scrape</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li style="color: red;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% if products %}
+    <h2>Scraped Products:</h2>
+    <p>Total items scraped: {{ products|length }}</p>  <!-- Display total count -->
+    <table id="productsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Suppliers</th>
+                <th>Average Review</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.suppliers }}</td>
+                <td>{{ product.average_review }}</td>
+                <td><img src="{{ product.image_url }}" alt="{{ product.name }}" width="100"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#productsTable').DataTable({
+                "order": [[2, "desc"]],  // Set default sorting on the Price column (3rd column)
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]  // Options for entries per page
+            });
+        });
+    </script>
+</body>
+</html>
